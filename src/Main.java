@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class Main {
+
+    /** example.
+     */
     public static void main(String[] args) {
         // Generate realistic random permutations for the discs
         Permutation disc1Permutation = createRandomPermutation(26);
@@ -14,7 +17,6 @@ public class Main {
 
         // Create a symmetric permutation for the reflector
         Permutation reflectorPermutation = createSymmetricPermutation(26);
-
 
 
         // Create an Enigma machine with two discs and one reflector
@@ -29,7 +31,7 @@ public class Main {
         System.out.println(reflectorPermutation);
 
         // Example encryption
-        final String text = "DasBuchIstScheissesadfasdfasdffaesasfdsadffasdfdsafsdafasdfasdf";
+        final String text = "GrueßGottHerrOberHauptMann";
         System.out.println("original text: " + text);
         String encrypted = enigmaMachine1.transform(text);
         System.out.println("Encrypted text: " + encrypted);

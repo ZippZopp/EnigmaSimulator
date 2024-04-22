@@ -3,9 +3,21 @@ package Components;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The Permutation class represents a bijective (one-to-one and onto) mapping of integers,
+ * which is used for encryption and decryption transformations in Enigma components.
+ */
 public class Permutation {
+    /** Stores the permutation mapping as an array of integers.
+     */
     private final int[] elements;
 
+    /**
+     * Constructs a Permutation with a set of initial elements. Each element must be unique.
+     *
+     * @param initialElements the initial permutation values, each index maps to the element at that index.
+     * @throws IllegalArgumentException if there are duplicate elements in the initial set.
+     */
     public Permutation(int... initialElements) {
         Set<Integer> set = new HashSet<>();
         elements = new int[initialElements.length];
@@ -17,13 +29,27 @@ public class Permutation {
             elements[i] = initialElements[i];
         }
     }
-
+    /**
+     * Retrieves the element at the specified index in the permutation.
+     *
+     * @param index the index of the element to retrieve.
+     * @return the element at the specified index.
+     * @throws IndexOutOfBoundsException if the index is out of the range of the permutation array.
+     */
     public int get(int index) {
         if (index < 0 || index >= elements.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + elements.length);
         }
         return elements[index];
     }
+    /**
+     * Finds the index of a given value in the permutation array.
+     *
+     * @param value the value whose index is to be found.
+     * @return the index of the value.
+     * @throws IllegalArgumentException if the value is out of the expected range.
+     * @throws IllegalStateException if the value is not found, which should not occur in a correct permutation setup.
+     */
     public int indexOf(int value) {
         if (value < 0 || value >= elements.length) {
             throw new IllegalArgumentException("Value " + value + " out of range 0 to " + (elements.length - 1));
@@ -38,10 +64,20 @@ public class Permutation {
         throw new IllegalStateException("Permutation array does not contain the value, which should be impossible.");
     }
 
+    /**
+     * Returns the size of the permutation array.
+     *
+     * @return the number of elements in the permutation.
+     */
     public int size() {
         return elements.length;
     }
 
+    /**
+     * Returns a string representation of the permutation array.
+     *
+     * @return the string representation of the permutation, formatted as a list of elements.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
