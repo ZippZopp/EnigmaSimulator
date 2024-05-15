@@ -31,7 +31,7 @@ public class Reflector {
      */
     private static boolean isSymmetric(Permutation permutation){
         for (int idx = 0; idx < permutation.size(); idx++) {
-            if (idx != permutation.get(permutation.get(idx))){
+            if (idx != permutation.translate(permutation.translate(idx))){
                 return false;
             }
         }
@@ -45,7 +45,7 @@ public class Reflector {
      * @return the reflected character value.
      */
     public int translate(int inputCharValue){
-        return permutations.get(inputCharValue);
+        return permutations.translate(inputCharValue);
     }
 
 

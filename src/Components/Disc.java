@@ -32,7 +32,7 @@ public class Disc {
      */
     public int translate(int inputCharValue){
         int adjustedIndex = (inputCharValue + currentPosition.getValue()) % permutations.size();
-        return permutations.get(adjustedIndex);
+        return permutations.translate(adjustedIndex);
     }
     /**
      * Translates a character value backwards, finding the original value from a given encrypted value.
@@ -40,8 +40,8 @@ public class Disc {
      * @param inputCharValue the character value to translate back.
      * @return the original character value before encryption.
      */
-    public int translateBackward(int inputCharValue){
-        int translatedIndex = permutations.indexOf(inputCharValue);
+    public int translateBackwards(int inputCharValue){
+        int translatedIndex = permutations.translateBackwards(inputCharValue);
         return (translatedIndex - currentPosition.getValue() + permutations.size()) % permutations.size();
 
     }

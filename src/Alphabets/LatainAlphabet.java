@@ -6,6 +6,7 @@ package Alphabets;
  * only considering uppercase letters.
  */
 public class LatainAlphabet implements Alphabet {
+    public static final int LETTER_COUNT = 26;
 
     /**
      * Returns the count of letters in the English alphabet, which is 26.
@@ -14,7 +15,7 @@ public class LatainAlphabet implements Alphabet {
      */
     @Override
     public int getLetterCount() {
-        return 26;
+        return LETTER_COUNT;
     }
 
     /**

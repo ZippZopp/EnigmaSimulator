@@ -1,36 +1,40 @@
 import Alphabets.Alphabet;
 import Alphabets.LatainAlphabet;
 import Components.Disc;
+import Components.Permutation;
 import Components.Reflector;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
 /**
  * The Enigma class represents a model of the Enigma encryption machine.
- * It includes a set of rotors (discs), a reflector, and an alphabet system.
+ * It includes a plugBoard, a set of rotors (discs), a reflector, and an alphabet system.
  */
-public class Enigma {
-
-
+public class Enigma{
+    Permutation plugBoard;
     List<Disc> discs;
     Reflector reflector;
     Alphabet alphabet;
 
+
     /**
-     * Constructs an Enigma machine with specified discs, a reflector, and an alphabet.
+     * Constructs an Enigma machine with specified plugBoard, discs, a reflector, and an alphabet.
      * Validates that each disc in the machine has a slot for every letter of the alphabet.
      *
+     * @param plugBoard is represented as a permutation.
      * @param discs    the list of rotors (discs) to be used in the machine.
      * @param reflector the reflector to be used in the machine.
      * @param alphabet the alphabet system to be used for encryption.
      * @throws IllegalArgumentException if any disc does not match the size of the alphabet.
      */
-    public Enigma(List<Disc> discs, Reflector reflector, Alphabet alphabet) {
+    public Enigma(Permutation plugBoard, List<Disc> discs, Reflector reflector, Alphabet alphabet) {
         this.alphabet = alphabet;
 
         if(!(discs.stream().allMatch(disc -> disc.size() == alphabet.getLetterCount())))
             throw new IllegalArgumentException("all discs need to have a slot for every letter and not more");
 
+        this.plugBoard = plugBoard;
         this.discs = discs;
         this.reflector = reflector;
     }
@@ -38,11 +42,12 @@ public class Enigma {
      * Constructs an Enigma machine with specified discs and a reflector.
      * Uses the Latin alphabet by default.
      *
+     * @param plugBoard is represented as a permutation.
      * @param discs    the list of rotors (discs) to be used in the machine.
      * @param reflector the reflector to be used in the machine.
      */
-    public Enigma(List<Disc> discs, Reflector reflector) {
-        this(discs,reflector,new LatainAlphabet());
+    public Enigma(Permutation plugBoard,List<Disc> discs, Reflector reflector) {
+        this(plugBoard,discs,reflector,new LatainAlphabet());
     }
 
     /**
@@ -82,7 +87,8 @@ public class Enigma {
      * @return the translated character value.
      */
     private int translateCharValue(int charValue){
-        // go thoug all dics and the reflector and throu all discs again
+        charValue = plugBoard.translate(charValue);
+
         for (Disc disc : discs) {
             charValue = disc.translate(charValue);
         }
@@ -90,8 +96,10 @@ public class Enigma {
         charValue = reflector.translate(charValue);
 
         for (int i = discs.size()-1; i >= 0; i--) {
-            charValue = discs.get(i).translateBackward(charValue);
+            charValue = discs.get(i).translateBackwards(charValue);
         }
+
+        charValue = plugBoard.translateBackwards(charValue);
 
         stepTheDiscs();
 
@@ -113,4 +121,5 @@ public class Enigma {
 
         }
     }
+
 }

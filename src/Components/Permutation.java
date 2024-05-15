@@ -36,7 +36,7 @@ public class Permutation {
      * @return the element at the specified index.
      * @throws IndexOutOfBoundsException if the index is out of the range of the permutation array.
      */
-    public int get(int index) {
+    public int translate(int index) {
         if (index < 0 || index >= elements.length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + elements.length);
         }
@@ -50,7 +50,7 @@ public class Permutation {
      * @throws IllegalArgumentException if the value is out of the expected range.
      * @throws IllegalStateException if the value is not found, which should not occur in a correct permutation setup.
      */
-    public int indexOf(int value) {
+    public int translateBackwards(int value) {
         if (value < 0 || value >= elements.length) {
             throw new IllegalArgumentException("Value " + value + " out of range 0 to " + (elements.length - 1));
         }

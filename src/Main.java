@@ -1,8 +1,10 @@
+import Alphabets.LatainAlphabet;
 import Components.Disc;
 import Components.Permutation;
 import Components.Reflector;
 
 import java.util.*;
+
 
 public class Main {
 
@@ -15,18 +17,22 @@ public class Main {
     /** example Program.
      */
     private static void runEnigmaExampleProgram(final String text) {
+        Permutation plugBoardPermutation = createRandomPermutation(LatainAlphabet.LETTER_COUNT);
+
         // Generate realistic random permutations for the discs
-        Permutation disc1Permutation = createRandomPermutation(26);
-        Permutation disc2Permutation = createRandomPermutation(26);
+        Permutation disc1Permutation = createRandomPermutation(LatainAlphabet.LETTER_COUNT);
+        Permutation disc2Permutation = createRandomPermutation(LatainAlphabet.LETTER_COUNT);
 
         // Create a symmetric permutation for the reflector
-        Permutation reflectorPermutation = createSymmetricPermutation(26);
+        Permutation reflectorPermutation = createSymmetricPermutation(LatainAlphabet.LETTER_COUNT);
 
         // Create two Enigma machine with two discs and one reflector
-        Enigma enigmaMachine1 = new Enigma(List.of(new Disc(0, disc1Permutation),new Disc(1, disc2Permutation)), new Reflector(reflectorPermutation));
-        Enigma enigmaMachine2 = new Enigma(List.of(new Disc(0, disc1Permutation),new Disc(1, disc2Permutation)), new Reflector(reflectorPermutation));
+        Enigma enigmaMachine1 = new Enigma(plugBoardPermutation, List.of(new Disc(0, disc1Permutation),new Disc(1, disc2Permutation)), new Reflector(reflectorPermutation));
+        Enigma enigmaMachine2 = new Enigma(plugBoardPermutation, List.of(new Disc(0, disc1Permutation),new Disc(1, disc2Permutation)), new Reflector(reflectorPermutation));
 
         System.out.println("Created 2 Enigmas");
+        System.out.println("this plugBoard permutation:");
+        System.out.println(plugBoardPermutation);
         System.out.println("this disc permutation:");
         System.out.println(disc1Permutation);
         System.out.println(disc2Permutation);
