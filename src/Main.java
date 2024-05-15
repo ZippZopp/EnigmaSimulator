@@ -2,15 +2,19 @@ import Components.Disc;
 import Components.Permutation;
 import Components.Reflector;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
-    /** example.
-     */
+
     public static void main(String[] args) {
+        Optional<String> optionalString = Arrays.stream(args).reduce((a, b) -> a + b);
+        runEnigmaExampleProgram(optionalString.orElse(""));
+    }
+
+    /** example Program.
+     */
+    private static void runEnigmaExampleProgram(final String text) {
         // Generate realistic random permutations for the discs
         Permutation disc1Permutation = createRandomPermutation(26);
         Permutation disc2Permutation = createRandomPermutation(26);
@@ -18,8 +22,7 @@ public class Main {
         // Create a symmetric permutation for the reflector
         Permutation reflectorPermutation = createSymmetricPermutation(26);
 
-
-        // Create an Enigma machine with two discs and one reflector
+        // Create two Enigma machine with two discs and one reflector
         Enigma enigmaMachine1 = new Enigma(List.of(new Disc(0, disc1Permutation),new Disc(1, disc2Permutation)), new Reflector(reflectorPermutation));
         Enigma enigmaMachine2 = new Enigma(List.of(new Disc(0, disc1Permutation),new Disc(1, disc2Permutation)), new Reflector(reflectorPermutation));
 
@@ -31,7 +34,6 @@ public class Main {
         System.out.println(reflectorPermutation);
 
         // Example encryption
-        final String text = "GrueßGottHerrOberHauptMann";
         System.out.println("original text: " + text);
         String encrypted = enigmaMachine1.transform(text);
         System.out.println("Encrypted text: " + encrypted);
